@@ -52,7 +52,7 @@ export default class YouthCalendar extends Component {
       dayLeftText : undefined,  // 每日禁忌
       imageTop : undefined,
       imageTopBorder : 3.76,  // 百分比
-      iconSizeByWidth : 8,          // 百分比
+      iconSizeByWidth : 10,          // 百分比
       iconLeft : 5,
       iconTop : 5.5,
       linkUrl : undefined,
@@ -153,13 +153,13 @@ export default class YouthCalendar extends Component {
             middlePos : true,
             wordSpacing : 1
           })
-        imgtreat.textDraw(canvas, chinaCal.monthCn,
+        imgtreat.textDraw(canvas, chinaCal.cMonth + "月",
           canvas.width / 2 + canvas.width * this.state.dayOtherLocal / 100,
           canvas.height * this.state.dayTop / 100 + (this.state.dayFontSize * canvas.height / 100) / 2, {
             fillStyle : "black",
             font : this.state.dayOtherFont,
             middlePos : true,
-            wordSpacing : 1
+            wordSpacing : 0.7
           })
         imgtreat.textDraw(canvas, chinaCal.ncWeek,
           canvas.width / 2 + canvas.width * this.state.dayOtherLocal / 100,
