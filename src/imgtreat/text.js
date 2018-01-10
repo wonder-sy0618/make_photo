@@ -9,6 +9,7 @@ export let textDraw = (canvas, text, posX, posY, option) => {
     fillStyle : 'blue',
     lineSpacing : 1,    // 行间距，倍数
     wordSpacing : 1,    // 字间距，倍数
+    middlePos : false,  // 以显示的中点为测量
     isVertical : false
   };
   let opt = extend({}, defaultOption, option)
@@ -24,6 +25,15 @@ export let textDraw = (canvas, text, posX, posY, option) => {
       if (width > maxCharWidth) maxCharWidth = width;
     }
     maxCharWidth = maxCharWidth * opt.wordSpacing
+    // 以中点测量y轴
+    if (opt.middlePos) {
+      let maxRowHeight = 0;
+      for (let i=0; i<text.split("\n").length; i++) {
+        let height = text.split("\n")[i].length * textHeight;
+        if (height > maxRowHeight) maxRowHeight = height;
+      }
+      posY = posY - maxRowHeight / 2;
+    }
     //
     let textLineArray = text.split("\n");
     for (let i=0; i<textLineArray.length; i++) {
@@ -33,12 +43,22 @@ export let textDraw = (canvas, text, posX, posY, option) => {
       }
     }
   } else {
+    // 最宽的字符
     let maxCharWidth = 0;
     for (let i=0; i<text.length; i++) {
       let width = context.measureText(text[i]).width
       if (width > maxCharWidth) maxCharWidth = width;
     }
     maxCharWidth = maxCharWidth * opt.wordSpacing
+    // 以中点测量x轴
+    if (opt.middlePos) {
+      let maxRowWidth = 0;
+      for (let i=0; i<text.split("\n").length; i++) {
+        let width = text.split("\n")[i].length * maxCharWidth;
+        if (width > maxRowWidth) maxRowWidth = width;
+      }
+      posX = posX - maxRowWidth / 2;
+    }
     //
     let textLineArray = text.split("\n");
     for (let i=0; i<textLineArray.length; i++) {
