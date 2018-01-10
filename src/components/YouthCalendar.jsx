@@ -280,7 +280,7 @@ export default class YouthCalendar extends Component {
           <div style={{ margin: '16px 0' }} ></div>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
             <Row>
-              <Col span={12}>
+              <Col sm={24} md={12} lg={12} >
                 <Form>
                   <Form.Item {...formItemLayout} label="分辨率" >
                       <InputNumber min={125} max={5184}
@@ -412,7 +412,24 @@ export default class YouthCalendar extends Component {
                   </Form.Item>
                 </Form>
               </Col>
-              <Col span={12}>
+              <Col sm={0} md={12} lg={12} >
+                <Card
+                  hoverable
+                  style={{ width: 399 }}
+                  bodyStyle={{border : "1px solid #e2e2e2"}}
+                  cover={this.state.showImage ? <img alt="proview" src={this.state.showImage} /> : <Alert message="请完善表单" type="warning" /> }
+                  >
+                  {this.state.showImage ?
+                    <Card.Meta
+                      title="创建完成"
+                      description="请在上方图片上右键，保存图片"
+                      ></Card.Meta>
+                    : "" }
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={24} md={0} lg={0} xl={0} xxl={0} >
                 <Card
                   hoverable
                   style={{ width: 399 }}
