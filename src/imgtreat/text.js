@@ -33,6 +33,8 @@ export let textDraw = (canvas, text, posX, posY, option) => {
         if (height > maxRowHeight) maxRowHeight = height;
       }
       posY = posY - maxRowHeight / 2;
+      //
+      posX = posX - textHeight * text.split("\n").length / 2
     }
     //
     let textLineArray = text.split("\n");
@@ -58,6 +60,8 @@ export let textDraw = (canvas, text, posX, posY, option) => {
         if (width > maxRowWidth) maxRowWidth = width;
       }
       posX = posX - maxRowWidth / 2;
+      //
+      posY = posY - textHeight * opt.lineSpacing * text.split("\n").length / 2
     }
     //
     let textLineArray = text.split("\n");

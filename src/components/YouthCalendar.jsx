@@ -57,15 +57,15 @@ export default class YouthCalendar extends Component {
       iconTop : 5.5,
       linkUrl : undefined,
       linkUrlSize : 22,       // 百分比
-      linkUrlLeft : 5.5,     // 百分比
+      linkUrlLeft : 4.5,     // 百分比
       linkUrlBottom : 2.5,     // 百分比
       linkUrlTitle : "扫一扫了解更多好青年事迹",
       footHeight : 16,        // 百分数
       backgroundStyle : "white",
       footStyle : "#d0d0d0",
       middleSaying : undefined, // "“现在，青春是用来奋斗的\n将来，青春是用来回忆的。”",
-      middleSayingAuthor : undefined,  // "习近平",
-      middleSayingPos : 70,     // 中间话的位置
+      middleSayingAuthor : undefined, // "习近平",
+      middleSayingPos : 74,     // 中间话的位置
       footSaying : undefined, // "我要怀着一颗博爱与勇敢的心去面对，\n生命有终点，感恩无长假，用爱丈量幸福的宽度。",
       footSayingAuthor : undefined  // "中国好青年青春宣言",
     }
@@ -111,9 +111,10 @@ export default class YouthCalendar extends Component {
       }
       // 日期区域
       let drawDay = () => {
-        imgtreat.textDraw(canvas, this.state.day.format("DD"), canvas.width / 2, canvas.height * this.state.dayTop / 100, {
+        let fontSize = this.state.dayFontSize * canvas.height / 100;
+        imgtreat.textDraw(canvas, this.state.day.format("DD"), canvas.width / 2, canvas.height * this.state.dayTop / 100 + fontSize / 2, {
           fillStyle : "black",
-          font : this.state.dayFontSize * canvas.height / 100 + this.state.dayFont,
+          font : fontSize + this.state.dayFont,
           middlePos : true,
           wordSpacing : 1.2
         })
@@ -128,7 +129,7 @@ export default class YouthCalendar extends Component {
           })
         if (this.state.dayLeftText) {
           imgtreat.textDraw(canvas, this.state.dayLeftText,
-            canvas.width / 2 - canvas.width * this.state.dayOtherLocal / 100 - 20,
+            canvas.width / 2 - canvas.width * this.state.dayOtherLocal / 100,
             canvas.height * this.state.dayTop / 100 + (this.state.dayFontSize * canvas.height / 100) / 2 + 18, {
               fillStyle : "black",
               font : this.state.dayOtherFont,
@@ -183,7 +184,7 @@ export default class YouthCalendar extends Component {
             wordSpacing : 1.05,
             lineSpacing : 1.5
           })
-        imgtreat.textDraw(canvas, "—— "+this.state.middleSayingAuthor, x + 120, y + 10 + (this.state.middleSaying.split("\n").length * 40), {
+        imgtreat.textDraw(canvas, "—— "+this.state.middleSayingAuthor, x + 120, y + 10 + (this.state.middleSaying.split("\n").length * 20), {
             fillStyle : "black",
             font : "22px 黑体",
             middlePos : false,
@@ -229,24 +230,28 @@ export default class YouthCalendar extends Component {
           return true;
         }
         // 在底部，除去二维码后，剩下的空间输出文字
-        let qrcodeLeft = canvas.width * this.state.linkUrlLeft / 100 * 2;
+        let qrcodeLeft = canvas.width * this.state.linkUrlLeft / 100;
         let qrcodeSize = canvas.width * this.state.linkUrlSize / 100 + qrcodeLeft;
         let width = canvas.width - qrcodeSize;
         let height = canvas.height * this.state.footHeight / 100
-        let x = qrcodeSize + 0;
-        let y = canvas.height - height + 30
-        imgtreat.textDraw(canvas, this.state.footSaying, x, y, {
+        let x = canvas.width - width + width / 2;
+        let y = canvas.height - height + height / 2
+        let footSayingOpt = {
             fillStyle : "black",
             font : "22px 黑体",
-            middlePos : false,
+            middlePos : true,
             wordSpacing : 1.05,
             lineSpacing : 1.5
-          })
-        imgtreat.textDraw(canvas, "—— "+this.state.footSayingAuthor, x + 120, y + 10 + (this.state.footSaying.split("\n").length * 30), {
+        }
+        imgtreat.textDraw(canvas, this.state.footSaying, x, y, footSayingOpt)
+        let footSayingAuthorPosY = this.state.footSaying.split("\n").length * parseInt(footSayingOpt.font.match(/\d+/), 10)
+                                    * footSayingOpt.lineSpacing / 2 + y + 20
+        console.log(footSayingAuthorPosY)
+        imgtreat.textDraw(canvas, "—— "+this.state.footSayingAuthor, x + 40, footSayingAuthorPosY, {
             fillStyle : "black",
             font : "22px 黑体",
-            middlePos : false,
-            wordSpacing : 1,
+            middlePos : true,
+            wordSpacing : 1.05,
             lineSpacing : 1.5
           })
       }
