@@ -162,7 +162,7 @@ export default class YouthCalendar extends Component {
             middlePos : true,
             wordSpacing : 0.7
           })
-        imgtreat.textDraw(canvas, chinaCal.ncWeek,
+        imgtreat.textDraw(canvas, chinaCal.ncWeek.replace("零", "日"),
           canvas.width / 2 + canvas.width * this.state.dayOtherLocal / 100,
           canvas.height * this.state.dayTop / 100 + (this.state.dayFontSize * canvas.height / 100), {
             fillStyle : "black",
